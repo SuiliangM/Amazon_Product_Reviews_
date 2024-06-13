@@ -10,7 +10,11 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 
-review_data_file = './Reviews.csv'
+'''
+The Reviews.csv file is too large to include in the repository so please download it at https://www.kaggle.com/datasets/snap/amazon-fine-food-reviews
+if interested
+'''
+review_data_file = './Reviews.csv' 
 reviews_df = pd.read_csv(filepath_or_buffer = review_data_file, header = 0)
 
 def data_preprocessing(reviews_df : pd.DataFrame) -> pd.DataFrame:
@@ -19,7 +23,6 @@ def data_preprocessing(reviews_df : pd.DataFrame) -> pd.DataFrame:
 
     for index, row in reviews_df.fillna('').iterrows():
         sent = row["Summary"]
-        # print(f"printing sentence {sent} at id {row['Id']}")
         # retrieve the word_tokens
         word_tokens = word_tokenize(sent)
         
@@ -52,15 +55,6 @@ def create_unigram_model(reviews_df: pd.DataFrame):
     # Fit and transform the text data
     # X is a sprase matrix
     X = vectorizer.fit_transform(documents)
-
-    # Convert the result to an array
-    # comment out the following line because it leads to memory error
-    # unigram_matrix = X.toarray()
-
-    # Get feature names to see which words correspond to which columns
-    # feature_names = vectorizer.get_feature_names_out()
-    
-    # print("Feature Names:\n", feature_names)
     
     return X
 
@@ -76,15 +70,6 @@ def create_bigram_model(reviews_df: pd.DataFrame):
     # Fit and transform the text data
     # X is a sprase matrix
     X = vectorizer.fit_transform(documents)
-
-    # Convert the result to an array
-    # comment out the following line because it leads to memory error
-    # unigram_matrix = X.toarray()
-
-    # Get feature names to see which words correspond to which columns
-    # feature_names = vectorizer.get_feature_names_out()
-    
-    # print("Feature Names:\n", feature_names)
     
     return X
     
